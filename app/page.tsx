@@ -48,4 +48,31 @@ export default async function HomePage() {
         <h2 className="font-heading font-bold text-lg text-ink mb-3">Trending Now</h2>
 
         {(!articles || articles.length === 0) && (
-          <div className="bg-card
+          <div className="bg-card rounded-md p-6 text-center text-ink-light text-sm border border-dashed border-ink-light/30">
+            No published articles yet. Once your editor dashboard is built, published
+            articles will appear here automatically — this page is already wired to
+            read live from Supabase.
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {(articles ?? []).map((a: any) => (
+            <a
+              key={a.id}
+              href={`/coverage/${a.slug}`}
+              className="bg-card rounded-md shadow-sm overflow-hidden block"
+            >
+              <div className="h-28 bg-gradient-to-br from-ink-light to-ink" />
+              <div className="p-3">
+                <div className="font-heading font-bold text-sm text-ink">{a.title_en}</div>
+                {a.category && (
+                  <div className="text-xs text-ink-light mt-1">{a.category.name_en}</div>
+                )}
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+}
